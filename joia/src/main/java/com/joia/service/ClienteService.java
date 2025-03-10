@@ -25,6 +25,10 @@ public class ClienteService {
         return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
     }
 
+    public ClienteEntity findByEmail(String email) {
+        return clienteRepository.findByEmail(email);
+    }
+
     public List<ClienteEntity> findAll() {
         return clienteRepository.findAll();
     }

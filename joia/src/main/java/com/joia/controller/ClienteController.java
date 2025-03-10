@@ -36,6 +36,16 @@ public class ClienteController {
         }
     }
 
+    @GetMapping("/findByEmail")
+    public ResponseEntity<ClienteEntity> findByEmail(@RequestParam String email) {
+        try {
+            ClienteEntity cliente = clienteService.findByEmail(email);
+            return new ResponseEntity<>(cliente, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/findAll")
     public ResponseEntity<List<ClienteEntity>> findAll() {
         List<ClienteEntity> clienteEntities = clienteService.findAll();
