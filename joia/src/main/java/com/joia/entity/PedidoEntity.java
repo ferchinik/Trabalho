@@ -26,7 +26,7 @@ public class PedidoEntity {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonIgnoreProperties({"joais", "categorias", "fornecedores", "clientes", "pedidos"})
+    @JsonIgnoreProperties({"joiaEntities", "categoria", "fornecedor","pedidos","joias","cliente","clientes"})
     private ClienteEntity cliente;
 
     @ManyToMany
@@ -35,6 +35,6 @@ public class PedidoEntity {
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "joia_id")
     )
-    @JsonIgnoreProperties({"joais", "categorias", "fornecedores", "clientes", "pedidos"})
+    @JsonIgnoreProperties({"joiaEntities", "categoria", "fornecedor","pedidos","joias","cliente","clientes"})
     private List<JoiaEntity> joias;
 }

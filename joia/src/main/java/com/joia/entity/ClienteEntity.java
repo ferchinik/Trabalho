@@ -34,7 +34,7 @@ public class ClienteEntity {
     private String email;
 
     @OneToMany(mappedBy = "cliente")
-    @JsonIgnoreProperties({"joais", "categorias", "fornecedores", "clientes", "pedidos"})
+    @JsonIgnoreProperties({"joiaEntities", "categoria", "fornecedor","pedidos","joias","cliente","clientes"})
     private List<PedidoEntity> pedidos;
 }
 

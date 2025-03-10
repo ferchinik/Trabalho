@@ -24,6 +24,6 @@ public class CategoriaEntity {
     private String nome;
 
     @OneToMany(mappedBy = "categoria")
-    @JsonIgnoreProperties({"joais", "categorias", "fornecedores", "clientes", "pedidos"})
+    @JsonIgnoreProperties({"joiaEntities", "categoria", "fornecedor","pedidos","joias","cliente","clientes"})
     private List<JoiaEntity> joiaEntities;
 }

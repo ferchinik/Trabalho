@@ -31,12 +31,12 @@ public class JoiaEntity {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
-    @JsonIgnoreProperties({"joais", "categorias", "fornecedores", "clientes", "pedidos"})
+    @JsonIgnoreProperties({"joiaEntities", "categoria", "fornecedor","pedidos","joias","cliente","clientes"})
     private CategoriaEntity categoria;
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
-    @JsonIgnoreProperties({"joais", "categorias", "fornecedores", "clientes", "pedidos"})
+    @JsonIgnoreProperties({"joiaEntities", "categoria", "fornecedor","pedidos","joias","cliente","clientes"})
     private FornecedorEntity fornecedor;
 }
 
