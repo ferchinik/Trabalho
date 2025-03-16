@@ -1,6 +1,6 @@
 package com.joia.controller;
 
-import com.joia.entity.FornecedorEntity;
+import com.joia.entity.Fornecedor;
 import com.joia.service.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class FornecedorController {
     private FornecedorService fornecedorService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody FornecedorEntity fornecedorEntity) {
+    public ResponseEntity<String> save(@RequestBody Fornecedor fornecedorEntity) {
         try {
             String mensagem = fornecedorService.save(fornecedorEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -27,9 +27,9 @@ public class FornecedorController {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<FornecedorEntity> findById(@PathVariable Long id) {
+    public ResponseEntity<Fornecedor> findById(@PathVariable Long id) {
         try {
-            FornecedorEntity fornecedorEntity = fornecedorService.findById(id);
+            Fornecedor fornecedorEntity = fornecedorService.findById(id);
             return new ResponseEntity<>(fornecedorEntity, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -37,13 +37,13 @@ public class FornecedorController {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<FornecedorEntity>> findAll() {
-        List<FornecedorEntity> fornecedores = fornecedorService.findAll();
+    public ResponseEntity<List<Fornecedor>> findAll() {
+        List<Fornecedor> fornecedores = fornecedorService.findAll();
         return new ResponseEntity<>(fornecedores, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody FornecedorEntity fornecedorEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Fornecedor fornecedorEntity) {
         try {
             String mensagem = fornecedorService.update(fornecedorEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);

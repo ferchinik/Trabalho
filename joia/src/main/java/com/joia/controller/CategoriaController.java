@@ -1,6 +1,6 @@
 package com.joia.controller;
 
-import com.joia.entity.CategoriaEntity;
+import com.joia.entity.Categoria;
 import com.joia.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody CategoriaEntity categoriaEntity) {
+    public ResponseEntity<String> save(@RequestBody Categoria categoriaEntity) {
         try {
             String mensagem = categoriaService.save(categoriaEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -27,9 +27,9 @@ public class CategoriaController {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<CategoriaEntity> findById(@PathVariable Long id) {
+    public ResponseEntity<Categoria> findById(@PathVariable Long id) {
         try {
-            CategoriaEntity categoriaEntity = categoriaService.findById(id);
+            Categoria categoriaEntity = categoriaService.findById(id);
             return new ResponseEntity<>(categoriaEntity, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -37,13 +37,13 @@ public class CategoriaController {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<CategoriaEntity>> findAll() {
-        List<CategoriaEntity> categoriaEntities = categoriaService.findAll();
+    public ResponseEntity<List<Categoria>> findAll() {
+        List<Categoria> categoriaEntities = categoriaService.findAll();
         return new ResponseEntity<>(categoriaEntities, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody CategoriaEntity categoriaEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Categoria categoriaEntity) {
         try {
             String mensagem = categoriaService.update(categoriaEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);

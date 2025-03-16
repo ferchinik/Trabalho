@@ -1,6 +1,6 @@
 package com.joia.service;
 
-import com.joia.entity.PedidoEntity;
+import com.joia.entity.Pedido;
 import com.joia.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,21 +13,21 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public String save(PedidoEntity pedidoEntity) {
+    public String save(Pedido pedidoEntity) {
         pedidoRepository.save(pedidoEntity);
         return "Pedido salvo com sucesso!";
     }
 
-    public PedidoEntity findById(Long id) {
+    public Pedido findById(Long id) {
         return pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado!"));
     }
 
-    public List<PedidoEntity> findAll() {
+    public List<Pedido> findAll() {
         return pedidoRepository.findAll();
     }
 
-    public String update(PedidoEntity pedidoEntity, Long id) {
-        PedidoEntity pedidoEntityExistente = pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado!"));
+    public String update(Pedido pedidoEntity, Long id) {
+        Pedido pedidoEntityExistente = pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado!"));
         pedidoEntityExistente.setOrderDate(pedidoEntity.getOrderDate());
         pedidoEntityExistente.setCliente(pedidoEntity.getCliente());
         pedidoEntityExistente.setJoias(pedidoEntity.getJoias());

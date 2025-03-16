@@ -1,6 +1,6 @@
 package com.joia.service;
 
-import com.joia.entity.ClienteEntity;
+import com.joia.entity.Cliente;
 import com.joia.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public String save(ClienteEntity clienteEntity) {
+    public String save(Cliente clienteEntity) {
         if (clienteRepository.findByEmail(clienteEntity.getEmail()) != null) {
             throw new RuntimeException("Email já cadastrado!");
         }
@@ -21,20 +21,20 @@ public class ClienteService {
         return "Cliente salvo com sucesso!";
     }
 
-    public ClienteEntity findById(Long id) {
+    public Cliente findById(Long id) {
         return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
     }
 
-    public ClienteEntity findByEmail(String email) {
+    public Cliente findByEmail(String email) {
         return clienteRepository.findByEmail(email);
     }
 
-    public List<ClienteEntity> findAll() {
+    public List<Cliente> findAll() {
         return clienteRepository.findAll();
     }
 
-    public String update(ClienteEntity clienteEntity, Long id) {
-        ClienteEntity clienteEntityExistente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
+    public String update(Cliente clienteEntity, Long id) {
+        Cliente clienteEntityExistente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
 
         if (!clienteEntityExistente.getEmail().equals(clienteEntity.getEmail()) && clienteRepository.findByEmail(clienteEntity.getEmail()) != null) {
             throw new RuntimeException("Email já cadastrado!");

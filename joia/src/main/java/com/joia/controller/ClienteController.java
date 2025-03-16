@@ -1,6 +1,6 @@
 package com.joia.controller;
 
-import com.joia.entity.ClienteEntity;
+import com.joia.entity.Cliente;
 import com.joia.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody ClienteEntity clienteEntity) {
+    public ResponseEntity<String> save(@RequestBody Cliente clienteEntity) {
         try {
             String mensagem = clienteService.save(clienteEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -27,9 +27,9 @@ public class ClienteController {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<ClienteEntity> findById(@PathVariable Long id) {
+    public ResponseEntity<Cliente> findById(@PathVariable Long id) {
         try {
-            ClienteEntity clienteEntity = clienteService.findById(id);
+            Cliente clienteEntity = clienteService.findById(id);
             return new ResponseEntity<>(clienteEntity, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -37,9 +37,9 @@ public class ClienteController {
     }
 
     @GetMapping("/findByEmail")
-    public ResponseEntity<ClienteEntity> findByEmail(@RequestParam String email) {
+    public ResponseEntity<Cliente> findByEmail(@RequestParam String email) {
         try {
-            ClienteEntity cliente = clienteService.findByEmail(email);
+            Cliente cliente = clienteService.findByEmail(email);
             return new ResponseEntity<>(cliente, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -47,13 +47,13 @@ public class ClienteController {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<ClienteEntity>> findAll() {
-        List<ClienteEntity> clienteEntities = clienteService.findAll();
+    public ResponseEntity<List<Cliente>> findAll() {
+        List<Cliente> clienteEntities = clienteService.findAll();
         return new ResponseEntity<>(clienteEntities, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody ClienteEntity clienteEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Cliente clienteEntity) {
         try {
             String mensagem = clienteService.update(clienteEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);

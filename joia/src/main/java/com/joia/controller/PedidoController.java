@@ -1,6 +1,6 @@
 package com.joia.controller;
 
-import com.joia.entity.PedidoEntity;
+import com.joia.entity.Pedido;
 import com.joia.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody PedidoEntity pedidoEntity) {
+    public ResponseEntity<String> save(@RequestBody Pedido pedidoEntity) {
         try {
             String mensagem = pedidoService.save(pedidoEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -27,9 +27,9 @@ public class PedidoController {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<PedidoEntity> findById(@PathVariable Long id) {
+    public ResponseEntity<Pedido> findById(@PathVariable Long id) {
         try {
-            PedidoEntity pedidoEntity = pedidoService.findById(id);
+            Pedido pedidoEntity = pedidoService.findById(id);
             return new ResponseEntity<>(pedidoEntity, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -37,13 +37,13 @@ public class PedidoController {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<PedidoEntity>> findAll() {
-        List<PedidoEntity> pedidoEntities = pedidoService.findAll();
+    public ResponseEntity<List<Pedido>> findAll() {
+        List<Pedido> pedidoEntities = pedidoService.findAll();
         return new ResponseEntity<>(pedidoEntities, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody PedidoEntity pedidoEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Pedido pedidoEntity) {
         try {
             String mensagem = pedidoService.update(pedidoEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
