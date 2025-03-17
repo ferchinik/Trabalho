@@ -2,6 +2,7 @@ package com.joia.controller;
 
 import com.joia.entity.Categoria;
 import com.joia.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Categoria categoriaEntity) {
+    public ResponseEntity<String> save(@Valid @RequestBody Categoria categoriaEntity) {
         try {
             String mensagem = categoriaService.save(categoriaEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -43,7 +44,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Categoria categoriaEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody Categoria categoriaEntity) {
         try {
             String mensagem = categoriaService.update(categoriaEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
@@ -62,4 +63,3 @@ public class CategoriaController {
         }
     }
 }
-

@@ -2,6 +2,7 @@ package com.joia.controller;
 
 import com.joia.entity.Cliente;
 import com.joia.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Cliente clienteEntity) {
+    public ResponseEntity<String> save(@Valid @RequestBody Cliente clienteEntity) {
         try {
             String mensagem = clienteService.save(clienteEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -53,7 +54,7 @@ public class ClienteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Cliente clienteEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody Cliente clienteEntity) {
         try {
             String mensagem = clienteService.update(clienteEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);

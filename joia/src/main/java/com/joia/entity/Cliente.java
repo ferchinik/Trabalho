@@ -9,7 +9,6 @@ import lombok.*;
 
 import java.util.List;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,20 +23,16 @@ public class Cliente {
 
     @NotBlank(message = "O nome do cliente não pode ser vazio.")
     @Size(max = 100, message = "O nome do cliente não pode exceder 100 caracteres.")
-    @Column
+    @Column(nullable = false, length = 100)
     private String nome;
 
     @NotBlank(message = "O email do cliente não pode ser vazio.")
     @Email(message = "O email deve ser válido.")
     @Size(max = 100, message = "O email do cliente não pode exceder 100 caracteres.")
-    @Column
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties({"cliente"})
+    @JsonIgnoreProperties("cliente")
     private List<Pedido> pedidos;
-
-
-
 }
-

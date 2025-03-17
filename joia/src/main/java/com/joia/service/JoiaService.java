@@ -2,6 +2,7 @@ package com.joia.service;
 
 import com.joia.entity.Joia;
 import com.joia.repository.JoiaRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,59 +14,53 @@ public class JoiaService {
     @Autowired
     private JoiaRepository joiaRepository;
 
-    // Método para salvar com validação
-    public String save(Joia joiaEntity) {
-        validarJoia(joiaEntity); // Validação antes de salvar
+    public String save(@Valid Joia joiaEntity) {
+        validarJoia(joiaEntity);
         joiaRepository.save(joiaEntity);
         return "Joia salva com sucesso!";
     }
 
     public Joia findById(Long id) {
-        return joiaRepository.findById(id).orElseThrow(() -> new RuntimeException("Joia não encontrada!"));
+        return joiaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Joia não encontrada!"));
     }
 
     public List<Joia> findAll() {
         return joiaRepository.findAll();
     }
 
-    // Método para atualizar com validação
-    public String update(Joia joiaEntity, Long id) {
-        Joia joiaExistente = joiaRepository.findById(id).orElseThrow(() -> new RuntimeException("Joia não encontrada!"));
+    public String update(@Valid Joia joiaEntity, Long id) {
+        Joia joiaExistente = joiaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Joia não encontrada!"));
 
-        validarJoia(joiaEntity); // Validação antes de atualizar
+        validarJoia(joiaEntity);
 
-        // Atualizando os atributos
-        joiaExistente.setNome(joiaEntity.getNome());
-        joiaExistente.setDescricao(joiaEntity.getDescricao());
-        joiaExistente.setTipoMetal(joiaEntity.getTipoMetal());
+        joiaExistente.setNome(joiaEntity.getNome().toUpperCase());
         joiaExistente.setCategoria(joiaEntity.getCategoria());
         joiaExistente.setFornecedor(joiaEntity.getFornecedor());
+
         joiaRepository.save(joiaExistente);
         return "Joia atualizada com sucesso!";
     }
 
     public String delete(Long id) {
+        joiaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Joia não encontrada!"));
         joiaRepository.deleteById(id);
         return "Joia deletada com sucesso!";
     }
 
-    // Método para validar regras de negócio
     private void validarJoia(Joia joiaEntity) {
-        if (joiaEntity.getNome() == null || joiaEntity.getNome().isEmpty()) {
+        if (joiaEntity.getNome() == null || joiaEntity.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("O nome da joia não pode ser vazio!");
         }
 
-        // Garantir que o nome esteja em caixa alta
-        joiaEntity.setNome(joiaEntity.getNome().toUpperCase());
-
-        if (joiaEntity.getDescricao() == null || joiaEntity.getDescricao().isEmpty()) {
-            throw new IllegalArgumentException("A descrição da joia não pode ser vazia!");
+        if (joiaEntity.getCategoria() == null) {
+            throw new IllegalArgumentException("A categoria da joia não pode ser nula!");
         }
 
-        if (joiaEntity.getTipoMetal() == null || joiaEntity.getTipoMetal().isEmpty()) {
-            throw new IllegalArgumentException("O tipo de metal não pode ser vazio!");
+        if (joiaEntity.getFornecedor() == null) {
+            throw new IllegalArgumentException("O fornecedor da joia não pode ser nulo!");
         }
-
-        // Outras validações podem ser adicionadas conforme necessário
     }
 }

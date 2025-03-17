@@ -20,13 +20,13 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "The order date cannot be null!")
-    @Column
-    private Date orderDate;
+    @NotNull(message = "A data do pedido não pode ser nula.")
+    @Column(nullable = false)
+    private Date dataPedido;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    @JsonIgnoreProperties({"pedidos"})
+    @JsonIgnoreProperties("pedidos")
     private Cliente cliente;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -35,7 +35,6 @@ public class Pedido {
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "joia_id")
     )
-    @JsonIgnoreProperties({"pedidos"})
+    @JsonIgnoreProperties("pedidos")
     private List<Joia> joias;
-
 }

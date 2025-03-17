@@ -2,6 +2,7 @@ package com.joia.controller;
 
 import com.joia.entity.Fornecedor;
 import com.joia.service.FornecedorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class FornecedorController {
     private FornecedorService fornecedorService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Fornecedor fornecedorEntity) {
+    public ResponseEntity<String> save(@Valid @RequestBody Fornecedor fornecedorEntity) {
         try {
             String mensagem = fornecedorService.save(fornecedorEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -43,7 +44,7 @@ public class FornecedorController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Fornecedor fornecedorEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody Fornecedor fornecedorEntity) {
         try {
             String mensagem = fornecedorService.update(fornecedorEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);

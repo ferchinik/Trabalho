@@ -3,7 +3,11 @@ package com.joia.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,27 +21,25 @@ public class Joia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome da joia não pode ser vazio!")
-    @Column
+    @NotBlank(message = "O nome da joia não pode ser vazio.")
+    @Column(nullable = false)
     private String nome;
 
-    @NotBlank(message = "A descrição da joia não pode ser vazia!")
-    @Column
-    private String descricao;
-
-    @NotBlank(message = "O tipo de metal não pode ser vazio!")
-    @Column
-    private String tipoMetal;
+    @NotNull(message = "O preço não pode ser nulo.")
+    @Column(nullable = false)
+    private BigDecimal preco;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    @JsonIgnoreProperties({"categorias"})
+    @JoinColumn(name = "categoria_id", nullable = false)
+    @JsonIgnoreProperties("joias")
     private Categoria categoria;
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id", nullable = false)
-    @JsonIgnoreProperties({"joias"})
+    @JsonIgnoreProperties("joias")
     private Fornecedor fornecedor;
 
+    @ManyToMany(mappedBy = "joias")
+    @JsonIgnoreProperties("joias")
+    private List<Pedido> pedidos;
 }
-

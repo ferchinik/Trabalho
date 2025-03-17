@@ -20,16 +20,10 @@ public class Categoria {
     private Long id;
 
     @NotBlank(message = "O nome da categoria não pode ser vazio.")
-    @Column
+    @Column(nullable = false)
     private String nome;
 
-    @OneToMany(mappedBy = "categoria")
-    @JsonIgnoreProperties({"joais"})
-    private List<Joia> joiaEntities;
-
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties({"categoria"})
+    @JsonIgnoreProperties("categoria")
     private List<Joia> joias;
-
-
 }

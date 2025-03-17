@@ -20,13 +20,10 @@ public class Fornecedor {
     private Long id;
 
     @NotBlank(message = "Nome não pode ser vazio.")
-    @Column
-    private String name;
+    @Column(nullable = false)
+    private String nome;
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties({"fornecedor"})
+    @JsonIgnoreProperties("fornecedor")
     private List<Joia> joias;
-
-
 }
-

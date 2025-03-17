@@ -2,6 +2,7 @@ package com.joia.controller;
 
 import com.joia.entity.Joia;
 import com.joia.service.JoiaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class JoiaController {
     private JoiaService joiaService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Joia joiaEntity) {
+    public ResponseEntity<String> save(@Valid @RequestBody Joia joiaEntity) {
         try {
             String mensagem = joiaService.save(joiaEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -43,7 +44,7 @@ public class JoiaController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Joia joiaEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody Joia joiaEntity) {
         try {
             String mensagem = joiaService.update(joiaEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
@@ -51,7 +52,6 @@ public class JoiaController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletar(@PathVariable Long id) {

@@ -2,6 +2,7 @@ package com.joia.controller;
 
 import com.joia.entity.Pedido;
 import com.joia.service.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Pedido pedidoEntity) {
+    public ResponseEntity<String> save(@Valid @RequestBody Pedido pedidoEntity) {
         try {
             String mensagem = pedidoService.save(pedidoEntity);
             return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
@@ -43,7 +44,7 @@ public class PedidoController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Pedido pedidoEntity) {
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody Pedido pedidoEntity) {
         try {
             String mensagem = pedidoService.update(pedidoEntity, id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
